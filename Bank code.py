@@ -365,4 +365,3 @@ def atm_menu(bank, account):
 # ---------------------------------------
 if __name__ == "__main__":
     main()
-    print("kalai")
