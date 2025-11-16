@@ -1,6 +1,500 @@
 {
-    "customers": [],
-    "accounts": [],
-    "transactions": [],
-    "last_account_number": 99
+    "customers": [
+        {
+            "name": "kannan",
+            "age": 28,
+            "created_at": "2025-10-24 23:35:13"
+        },
+        {
+            "name": "kalaivani",
+            "age": 28,
+            "created_at": "2025-10-24 23:52:14"
+        },
+        {
+            "name": "kavin",
+            "age": 29,
+            "created_at": "2025-10-25 00:02:51"
+        },
+        {
+            "name": "gopi",
+            "age": 30,
+            "created_at": "2025-10-25 00:08:14"
+        },
+        {
+            "name": "sindhu",
+            "age": 25,
+            "created_at": "2025-10-28 12:52:20"
+        },
+        {
+            "name": "shindhu",
+            "age": 25,
+            "created_at": "2025-10-28 12:59:42"
+        },
+        {
+            "name": "Anju",
+            "age": 50,
+            "created_at": "2025-10-28 13:03:22"
+        },
+        {
+            "name": "appa",
+            "age": 60,
+            "created_at": "2025-10-28 15:22:50"
+        },
+        {
+            "name": "amma",
+            "age": 50,
+            "created_at": "2025-10-28 15:27:12"
+        },
+        {
+            "name": "deepi",
+            "age": 26,
+            "created_at": "2025-10-28 15:41:59"
+        },
+        {
+            "name": "kalaivani",
+            "age": 28,
+            "created_at": "2025-10-29 21:18:54"
+        },
+        {
+            "name": "kavin kalai",
+            "age": 30,
+            "created_at": "2025-10-29 21:28:21"
+        },
+        {
+            "name": "kk",
+            "age": 25,
+            "created_at": "2025-10-29 21:29:53"
+        },
+        {
+            "name": "r",
+            "age": 5,
+            "created_at": "2025-10-29 21:32:29"
+        },
+        {
+            "name": "kalai",
+            "age": 25,
+            "created_at": "2025-10-29 21:34:51"
+        },
+        {
+            "name": "rr",
+            "age": 4,
+            "created_at": "2025-10-29 21:43:27"
+        },
+        {
+            "name": "6",
+            "age": 4,
+            "created_at": "2025-10-29 21:45:18"
+        },
+        {
+            "name": "er",
+            "age": 23,
+            "created_at": "2025-10-30 14:55:48"
+        },
+        {
+            "name": "you",
+            "age": 40,
+            "created_at": "2025-10-30 16:27:51"
+        },
+        {
+            "name": "Thulir",
+            "age": 1,
+            "created_at": "2025-10-30 16:38:08"
+        },
+        {
+            "name": "susi",
+            "age": 7,
+            "created_at": "2025-10-30 16:42:59"
+        },
+        {
+            "name": "thisho",
+            "age": 14,
+            "created_at": "2025-10-30 16:48:38"
+        },
+        {
+            "name": "perumal",
+            "age": 60,
+            "created_at": "2025-10-30 16:58:10"
+        },
+        {
+            "name": "y",
+            "age": 5,
+            "created_at": "2025-10-30 17:00:47"
+        },
+        {
+            "name": "t",
+            "age": 6,
+            "created_at": "2025-10-30 17:01:41"
+        }
+    ],
+    "accounts": [
+        {
+            "customer_name": "kannan",
+            "account_number": 100,
+            "password": "12345",
+            "balance": 7000.0,
+            "mpin": 1500.0,
+            "created_at": "2025-10-24 23:35:13"
+        },
+        {
+            "customer_name": "kalaivani",
+            "account_number": 101,
+            "password": "12345",
+            "balance": 1000.0,
+            "mpin": 2000.0,
+            "created_at": "2025-10-24 23:52:14"
+        },
+        {
+            "customer_name": "kavin",
+            "account_number": 102,
+            "password": "12345",
+            "balance": 0,
+            "mpin": 5000.0,
+            "created_at": "2025-10-25 00:02:51"
+        },
+        {
+            "customer_name": "gopi",
+            "account_number": 103,
+            "password": "12345",
+            "balance": 0,
+            "mpin": 5000.0,
+            "created_at": "2025-10-25 00:08:14"
+        },
+        {
+            "customer_name": "sindhu",
+            "account_number": 104,
+            "password": "00000",
+            "balance": 1900.0,
+            "created_at": "2025-10-28 12:52:20"
+        },
+        {
+            "customer_name": "shindhu",
+            "account_number": 105,
+            "password": "00000",
+            "balance": 0,
+            "mpin": 1000.0,
+            "created_at": "2025-10-28 12:59:42"
+        },
+        {
+            "customer_name": "Anju",
+            "account_number": 106,
+            "password": "55555",
+            "balance": 0,
+            "mpin": 1000.0,
+            "created_at": "2025-10-28 13:03:22"
+        },
+        {
+            "customer_name": "appa",
+            "account_number": 107,
+            "password": "33333",
+            "balance": 5700.0,
+            "mpin": 1111,
+            "created_at": "2025-10-28 15:22:50"
+        },
+        {
+            "customer_name": "amma",
+            "account_number": 108,
+            "password": "55555",
+            "balance": 3500.0,
+            "created_at": "2025-10-28 15:27:12"
+        },
+        {
+            "customer_name": "deepi",
+            "account_number": 109,
+            "password": "88888",
+            "balance": 1000.0,
+            "created_at": "2025-10-28 15:41:59"
+        },
+        {
+            "customer_name": "kalaivani",
+            "account_number": 110,
+            "password": "66666",
+            "balance": 1000.0,
+            "created_at": "2025-10-29 21:18:54"
+        },
+        {
+            "customer_name": "kavin kalai",
+            "account_number": 111,
+            "password": "abc123",
+            "balance": 1000.0,
+            "created_at": "2025-10-29 21:28:21"
+        },
+        {
+            "customer_name": "kk",
+            "account_number": 112,
+            "password": "123#abc",
+            "balance": 1000.0,
+            "created_at": "2025-10-29 21:29:53"
+        },
+        {
+            "customer_name": "r",
+            "account_number": 113,
+            "password": "345",
+            "balance": 5.0,
+            "created_at": "2025-10-29 21:32:29"
+        },
+        {
+            "customer_name": "kalai",
+            "account_number": 114,
+            "password": "23",
+            "balance": 2.0,
+            "created_at": "2025-10-29 21:34:51"
+        },
+        {
+            "customer_name": "rr",
+            "account_number": 115,
+            "password": "456",
+            "balance": 0.0,
+            "created_at": "2025-10-29 21:43:27"
+        },
+        {
+            "customer_name": "6",
+            "account_number": 116,
+            "password": "4",
+            "balance": 4.0,
+            "created_at": "2025-10-29 21:45:18"
+        },
+        {
+            "customer_name": "er",
+            "account_number": 117,
+            "password": "123",
+            "balance": 11.0,
+            "created_at": "2025-10-30 14:55:48"
+        },
+        {
+            "customer_name": "you",
+            "account_number": 118,
+            "password": "345abc",
+            "balance": 0.0,
+            "mpin": "1111",
+            "created_at": "2025-10-30 16:28:02"
+        },
+        {
+            "customer_name": "Thulir",
+            "account_number": 119,
+            "password": "180625",
+            "balance": 6000.0,
+            "mpin": "2& C:/Users/erkav/AppData/Local/Programs/Python/Python313/python.exe \"c:/Users/erkav/python.kalai/#banking 2.py\"",
+            "created_at": "2025-10-30 16:41:40"
+        },
+        {
+            "customer_name": "susi",
+            "account_number": 120,
+            "password": "09876abc",
+            "balance": 5500.0,
+            "mpin": "1111",
+            "created_at": "2025-10-30 16:43:21"
+        },
+        {
+            "customer_name": "thisho",
+            "account_number": 121,
+            "password": "12345",
+            "balance": 2000.0,
+            "mpin": "& C:/Users/erkav/AppData/Local/Programs/Python/Python313/python.exe \"c:/Users/erkav/python.kalai/#banking 2.py\"",
+            "created_at": "2025-10-30 16:56:41"
+        },
+        {
+            "customer_name": "perumal",
+            "account_number": 122,
+            "password": "123abc@#",
+            "balance": 5000.0,
+            "mpin": "& C:/Users/erkav/AppData/Local/Programs/Python/Python313/python.exe \"c:/Users/erkav/python.kalai/#banking 2.py\"",
+            "created_at": "2025-10-30 16:58:24"
+        },
+        {
+            "customer_name": "y",
+            "account_number": 123,
+            "password": "1234",
+            "balance": 500.0,
+            "mpin": "1111",
+            "created_at": "2025-10-30 17:00:47"
+        },
+        {
+            "customer_name": "t",
+            "account_number": 124,
+            "password": "45678",
+            "balance": 2900.0,
+            "mpin": "22ab",
+            "created_at": "2025-10-30 17:01:41"
+        }
+    ],
+    "transactions": [
+        {
+            "type": "deposit",
+            "amount": 100.0,
+            "account_number": 100,
+            "customer": "kannan",
+            "time": "2025-10-28 12:34:56"
+        },
+        {
+            "type": "deposit",
+            "amount": 5000.0,
+            "account_number": 100,
+            "customer": "kannan",
+            "time": "2025-10-28 13:07:40"
+        },
+        {
+            "type": "deposit",
+            "amount": 3000.0,
+            "account_number": 100,
+            "customer": "kannan",
+            "time": "2025-10-28 14:42:10"
+        },
+        {
+            "type": "deposit",
+            "amount": 5000.0,
+            "account_number": 101,
+            "customer": "kalaivani",
+            "time": "2025-10-28 14:48:09"
+        },
+        {
+            "type": "transfer_out",
+            "amount": 4000.0,
+            "from_account": 101,
+            "to_account": 100,
+            "customer": "kalaivani",
+            "time": "2025-10-28 14:48:29"
+        },
+        {
+            "type": "transfer_in",
+            "amount": 4000.0,
+            "from_account": 101,
+            "to_account": 100,
+            "customer": "kannan",
+            "time": "2025-10-28 14:48:29"
+        },
+        {
+            "type": "transfer_out",
+            "amount": 1000.0,
+            "from_account": 108,
+            "to_account": 107,
+            "customer": "amma",
+            "time": "2025-10-28 15:40:28"
+        },
+        {
+            "type": "transfer_in",
+            "amount": 1000.0,
+            "from_account": 108,
+            "to_account": 107,
+            "customer": "appa",
+            "time": "2025-10-28 15:40:28"
+        },
+        {
+            "type": "transfer_out",
+            "amount": 200.0,
+            "from_account": 109,
+            "to_account": 107,
+            "customer": "deepi",
+            "time": "2025-10-28 15:43:01"
+        },
+        {
+            "type": "transfer_in",
+            "amount": 200.0,
+            "from_account": 109,
+            "to_account": 107,
+            "customer": "appa",
+            "time": "2025-10-28 15:43:01"
+        },
+        {
+            "type": "deposit",
+            "amount": 500.0,
+            "account_number": 108,
+            "customer": "amma",
+            "time": "2025-10-28 16:23:59"
+        },
+        {
+            "type": "withdraw",
+            "amount": 1000.0,
+            "account_number": 108,
+            "customer": "amma",
+            "time": "2025-10-28 16:24:11"
+        },
+        {
+            "type": "transfer_out",
+            "amount": 1000.0,
+            "from_account": 108,
+            "to_account": 107,
+            "customer": "amma",
+            "time": "2025-10-28 16:48:40"
+        },
+        {
+            "type": "transfer_in",
+            "amount": 1000.0,
+            "from_account": 108,
+            "to_account": 107,
+            "customer": "appa",
+            "time": "2025-10-28 16:48:40"
+        },
+        {
+            "type": "transfer_out",
+            "amount": 500.0,
+            "from_account": 107,
+            "to_account": 108,
+            "customer": "appa",
+            "time": "2025-10-28 19:13:51"
+        },
+        {
+            "type": "transfer_in",
+            "amount": 500.0,
+            "from_account": 107,
+            "to_account": 108,
+            "customer": "amma",
+            "time": "2025-10-28 19:13:51"
+        },
+        {
+            "type": "transfer_out",
+            "amount": 500.0,
+            "from_account": 118,
+            "to_account": 108,
+            "customer": "you",
+            "time": "2025-10-30 16:30:10"
+        },
+        {
+            "type": "transfer_in",
+            "amount": 500.0,
+            "from_account": 118,
+            "to_account": 108,
+            "customer": "amma",
+            "time": "2025-10-30 16:30:10"
+        },
+        {
+            "type": "transfer_out",
+            "amount": 500.0,
+            "from_account": 120,
+            "to_account": 119,
+            "customer": "susi",
+            "time": "2025-10-30 16:46:05"
+        },
+        {
+            "type": "transfer_in",
+            "amount": 500.0,
+            "from_account": 120,
+            "to_account": 119,
+            "customer": "Thulir",
+            "time": "2025-10-30 16:46:05"
+        },
+        {
+            "type": "transfer_out",
+            "amount": 500.0,
+            "from_account": 124,
+            "to_account": 119,
+            "customer": "t",
+            "time": "2025-10-30 17:02:55"
+        },
+        {
+            "type": "transfer_in",
+            "amount": 500.0,
+            "from_account": 124,
+            "to_account": 119,
+            "customer": "Thulir",
+            "time": "2025-10-30 17:02:55"
+        },
+        {
+            "type": "deposit",
+            "amount": 400.0,
+            "account_number": 124,
+            "customer": "t",
+            "time": "2025-10-30 17:03:06"
+        }
+    ],
+    "last_account_number": 124
 }
