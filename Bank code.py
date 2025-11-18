@@ -1,7 +1,8 @@
 import json
 import os
 from datetime import datetime
-from getpass import getpass
+from pwinput import pwinput
+import bcrypt
 
 
 
@@ -230,8 +231,12 @@ class Bank:
     def open_account(self, customer, password, initial_deposit,mpin):
         """Create a new bank account for a new customer."""
         account_number = self._next_account_number()
-        account = BankAccount(customer, account_number, password, initial_deposit,mpin)
+        hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+        hashed_mpin = bcrypt.hashpw(mpin.encode(), bcrypt.gensalt()).decode()
 
+        account = BankAccount(customer, account_number, hashed_password, initial_deposit,hashed_mpin )
+
+        
         DATABASE["customers"].append(customer.to_dict())
         DATABASE["accounts"].append(account.to_dict())
         save_database(DATABASE)
@@ -244,12 +249,13 @@ class Bank:
     def login(self, account_number, password):
         """Check login credentials and return account object."""
         for acc in DATABASE["accounts"]:
-            if acc["account_number"] == int(account_number) and acc["password"] == password:
+            if acc["account_number"] == int(account_number) and bcrypt.checkpw(password.encode(), acc["password"].encode()):
+
                 # Find the corresponding customer info
                 for cust in DATABASE["customers"]:
                     if cust["name"] == acc["customer_name"]:
                         customer = Customer(cust["name"], cust["age"])
-                        account = BankAccount(customer, acc["account_number"], acc["password"], acc["balance"],acc.get("mpin"))
+                        account = BankAccount(customer, acc["account_number"], acc["password"], acc["balance"])
                         print(f"\n✅ Login successful! Welcome back, {customer.name}.")
                         return account
         print("❌ Invalid account number or password.")
@@ -345,7 +351,7 @@ def atm_menu(bank, account):
             amt=float(input("Enter amount: ₹"))
             account.money_transfer (to_acc,amt)
         elif choice == "7":
-            b_account=getpass("Enter benificiary account number:")
+            b_account=pwinput("Enter benificiary account number:")
             b_account_confirm=input("Re-enter benificiary account number:")
             if b_account!=b_account_confirm:
                 print("Account numbers do not matches")
