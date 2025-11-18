@@ -1,7 +1,10 @@
-#banking 2
 import json
 import os
 from datetime import datetime
+from pwinput import pwinput
+import bcrypt
+
+
 
 # ---------------------------------------
 # 📁 Database File Name
@@ -21,6 +24,7 @@ def load_database():
             "customers": [],
             "accounts": [],
             "transactions": [],
+            "beneficiaries":[],
             "last_account_number": 99  # Start before 100 (next = 100)
         }
         with open(DB_FILE, "w") as f:
@@ -180,6 +184,30 @@ class BankAccount:
         print(f"Remaining balance: ₹{self.balance}")
         self._update_database()
 
+    def add_beneficiaries(self,beneficiary_account_number,beneficiary_name,nick_name):
+        # Check if account exists
+        exists = False
+        for acc in DATABASE["accounts"]:
+            if acc["account_number"]==int(beneficiary_account_number):
+                exists = True
+                break
+        if not exists:
+            print("Beneficiary account does not exist.")
+            return
+        
+        DATABASE["beneficiaries"].append({
+            "owner_account":self.account_number,
+            "beneficiary_account":int(beneficiary_account_number),
+            "beneficiary_name":beneficiary_name,
+            "nick_name":nick_name,
+            "added_at":datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        })
+
+        save_database(DATABASE)
+        print(f"Benificiary '{nick_name}' added successfully!")
+
+
            
 
 
@@ -203,8 +231,12 @@ class Bank:
     def open_account(self, customer, password, initial_deposit,mpin):
         """Create a new bank account for a new customer."""
         account_number = self._next_account_number()
-        account = BankAccount(customer, account_number, password, initial_deposit,mpin)
+        hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+        hashed_mpin = bcrypt.hashpw(mpin.encode(), bcrypt.gensalt()).decode()
 
+        account = BankAccount(customer, account_number, hashed_password, initial_deposit,hashed_mpin )
+
+        
         DATABASE["customers"].append(customer.to_dict())
         DATABASE["accounts"].append(account.to_dict())
         save_database(DATABASE)
@@ -217,12 +249,13 @@ class Bank:
     def login(self, account_number, password):
         """Check login credentials and return account object."""
         for acc in DATABASE["accounts"]:
-            if acc["account_number"] == int(account_number) and acc["password"] == password:
+            if acc["account_number"] == int(account_number) and bcrypt.checkpw(password.encode(), acc["password"].encode()):
+
                 # Find the corresponding customer info
                 for cust in DATABASE["customers"]:
                     if cust["name"] == acc["customer_name"]:
                         customer = Customer(cust["name"], cust["age"])
-                        account = BankAccount(customer, acc["account_number"], acc["password"], acc["balance"],acc.get("mpin"))
+                        account = BankAccount(customer, acc["account_number"], acc["password"], acc["balance"])
                         print(f"\n✅ Login successful! Welcome back, {customer.name}.")
                         return account
         print("❌ Invalid account number or password.")
@@ -265,7 +298,7 @@ def main():
             pwd = input("Enter password: ")
             account = bank.login(acc_no, pwd)
             if account:
-                atm_menu (bank, account)
+                atm_menu(bank, account)
 
         elif choice == "2":
             name = input("Enter your name: ")
@@ -295,7 +328,8 @@ def atm_menu(bank, account):
         print("4. Calculate Interest")
         print("5. View Transactions")
         print("6. Money transfer")
-        print("7. Logout")
+        print("7. Add benificiaries")
+        print("8. Logout")
 
         choice = input("Select option: ")
 
@@ -314,10 +348,18 @@ def atm_menu(bank, account):
             bank.transaction_summary(account.account_number)
         elif choice == "6":
             to_acc=input("Enter recipient account number:")
-            mpin=input("Enter your 4-digit mpin:")
             amt=float(input("Enter amount: ₹"))
             account.money_transfer (to_acc,amt)
         elif choice == "7":
+            b_account=pwinput("Enter benificiary account number:")
+            b_account_confirm=input("Re-enter benificiary account number:")
+            if b_account!=b_account_confirm:
+                print("Account numbers do not matches")
+            b_name=input("enter benificiary name:")
+            nick_name=input("enter nick name:")
+            account.add_beneficiaries(b_account,b_name,nick_name)
+            
+        elif choice == "8":
             print(f"👋 Logged out successfully, {account.customer.name}.")
             break
         else:
@@ -328,4 +370,4 @@ def atm_menu(bank, account):
 # 🚀 Run the Program
 # ---------------------------------------
 if __name__ == "__main__":
-    main ()
+    main()

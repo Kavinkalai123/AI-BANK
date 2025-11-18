@@ -2,5 +2,6 @@
     "customers": [],
     "accounts": [],
     "transactions": [],
+    "beneficiaries": [],
     "last_account_number": 99
 }
