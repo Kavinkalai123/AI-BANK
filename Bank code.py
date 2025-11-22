@@ -164,6 +164,7 @@ class BankAccount:
         recipient["balance"] += amount
 
         #Record transactions for both users
+        
         DATABASE["transactions"].append({
             "type":"transfer_out",
             "amount":amount,
