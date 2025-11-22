@@ -1,6 +1,6 @@
 import json
 import os
-from datetime import datetime
+from datetime import datetime,timedelta
 from pwinput import pwinput
 import bcrypt
 
@@ -67,12 +67,13 @@ class Customer:
 class BankAccount:
     """Handles all account operations like deposit, withdraw, etc."""
 
-    def __init__(self, customer, account_number, password, balance=0,mpin=None):
+    def __init__(self, customer, account_number, password, balance=0,mpin=None,password_last_changed=None):
         self.customer = customer
         self.account_number = account_number
         self.password = password
         self.balance = balance
         self.mpin = mpin
+        self.password_last_changed = password_last_changed or datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     def to_dict(self):
@@ -84,6 +85,7 @@ class BankAccount:
             "balance": self.balance,
             "mpin" : self.mpin,
             "created_at": self.created_at,
+            "password_last_changed": self.password_last_changed
         }
 
     def deposit(self, amount):
@@ -234,7 +236,7 @@ class Bank:
         hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
         hashed_mpin = bcrypt.hashpw(mpin.encode(), bcrypt.gensalt()).decode()
 
-        account = BankAccount(customer, account_number, hashed_password, initial_deposit,hashed_mpin )
+        account = BankAccount(customer, account_number, hashed_password, initial_deposit,hashed_mpin,datetime.now().strftime("%Y-%m-%d %H:%M:%S") )
 
         
         DATABASE["customers"].append(customer.to_dict())
@@ -246,20 +248,68 @@ class Bank:
         print(f"Welcome to {self.name}, {customer.name}!\n")
         return account
 
+    
     def login(self, account_number, password):
-        """Check login credentials and return account object."""
-        for acc in DATABASE["accounts"]:
-            if acc["account_number"] == int(account_number) and bcrypt.checkpw(password.encode(), acc["password"].encode()):
 
-                # Find the corresponding customer info
-                for cust in DATABASE["customers"]:
-                    if cust["name"] == acc["customer_name"]:
-                        customer = Customer(cust["name"], cust["age"])
-                        account = BankAccount(customer, acc["account_number"], acc["password"], acc["balance"])
-                        print(f"\n✅ Login successful! Welcome back, {customer.name}.")
-                        return account
+        for acc in DATABASE["accounts"]:
+
+        # First check account number matches
+           if acc["account_number"] == int(account_number):
+               break
+
+        # Validate password
+        if not bcrypt.checkpw(password.encode(), acc["password"].encode()):
+            print(" Invalid account number or password.")
+            return None
+
+
+        # Handle missing last_changed
+        
+        last_changed_str = acc.get("password_last_changed")
+
+        
+
+        # Convert to datetime
+        last_changed = datetime.strptime(last_changed_str, "%Y-%m-%d %H:%M:%S")
+
+        
+        #  timedelta check (1 day)
+        
+        if datetime.now() - last_changed >= timedelta(days=1):
+            print("\n Your password has expired! You must reset it.")
+
+            new_pwd = pwinput("Enter new password: ")
+            hashed_new_pwd = bcrypt.hashpw(new_pwd.encode(), bcrypt.gensalt()).decode()
+
+            acc["password"] = hashed_new_pwd
+            acc["password_last_changed"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+            save_database(DATABASE)
+
+            print("🔒 Password updated successfully. Please login again.\n")
+            return None
+
+        # -------------------------------
+        # ✔ Login successful
+        # -------------------------------
+        for cust in DATABASE["customers"]:
+            if cust["name"] == acc["customer_name"]:
+                customer = Customer(cust["name"], cust["age"])
+                account = BankAccount(
+                    customer,
+                    acc["account_number"],
+                    acc["password"],
+                    acc["balance"],
+                    acc["mpin"],
+                    acc["password_last_changed"]
+                )
+                print(f"\n✅ Login successful! Welcome back, {customer.name}.")
+                return account
+
+    # If no match
         print("❌ Invalid account number or password.")
         return None
+
 
     def transaction_summary(self, account_number):
         """Display all transactions for the given account."""
@@ -295,7 +345,7 @@ def main():
 
         if choice == "1":
             acc_no = input("Enter account number: ")
-            pwd = input("Enter password: ")
+            pwd = pwinput("Enter password: ")
             account = bank.login(acc_no, pwd)
             if account:
                 atm_menu(bank, account)
@@ -303,9 +353,9 @@ def main():
         elif choice == "2":
             name = input("Enter your name: ")
             age = int(input("Enter your age: "))
-            pwd = input("Set your password: ")
+            pwd = pwinput("Set your password: ")
             initial = float(input("Initial deposit amount: ₹"))
-            mpin = input("set your 4-digit mpin:")
+            mpin = pwinput("set your 4-digit mpin:")
             customer = Customer(name, age)
             bank.open_account(customer, pwd,initial,mpin)
 
